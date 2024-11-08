@@ -1,11 +1,11 @@
 <script lang="ts">
-import type ICategoria from "@/interfaces/ICategoria";
+import type ICategory from "@/interfaces/ICategory";
 import type { PropType } from "vue";
 import IngredienteSelecionavel from "./IngredienteSelecionavel.vue";
 
 export default {
     props: {
-        categoria: { type: Object as PropType<ICategoria>, required: true },
+        categoria: { type: Object as PropType<ICategory>, required: true },
     },
     components: { IngredienteSelecionavel },
     emits: ["adicionarIngrediente", "removerIngrediente"],
@@ -16,7 +16,7 @@ export default {
     <article class="categoria">
         <header class="categoria__cabecalho">
             <img
-                :src="`/imagens/icones/categorias_ingredientes/${categoria.imagem}`"
+                :src="`/images/icons/categories_ingredients/${categoria.rotulo}.png`"
                 alt=""
                 class="categoria__imagem"
             />

@@ -1,14 +1,14 @@
 <script lang="ts">
 import { obterCategorias } from "@/http/index";
-import type ICategoria from "@/interfaces/ICategoria";
-import CardCategoria from "./CardCategoria.vue";
-import BotaoPrincipal from "./BotaoPrincipal.vue";
+import type ICategory from "@/interfaces/ICategory";
+import CardCategoria from "./CardCategory.vue";
+import BotaoPrincipal from "./ButtonMain.vue";
 
 export default {
     name: "SelecionarIngredientes",
     data() {
         return {
-            categorias: [] as ICategoria[],
+            categorias: [] as ICategory[],
         };
     },
     async created() {

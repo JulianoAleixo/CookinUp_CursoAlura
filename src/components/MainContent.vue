@@ -1,7 +1,7 @@
 <script lang="ts">
-import SuaLista from "./SuaLista.vue";
+import SuaLista from "./YourList.vue";
 import SelecionarIngredientes from "./SelecionarIngredientes.vue";
-import MostrarReceitas from "./MostrarReceitas.vue";
+import MostrarReceitas from "./ShowRecipes.vue";
 
 type Pagina = "SelecionarIngredientes" | "MostrarReceitas";
 
