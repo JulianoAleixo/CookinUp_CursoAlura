@@ -5,7 +5,7 @@ import Tag from "./Tag.vue";
 export default {
     components: { Tag },
     props: {
-        ingredientes: { type: Array as PropType<string[]>, required: true },
+        ingredients: { type: Array as PropType<string[]>, required: true },
     },
 };
 </script>
@@ -14,9 +14,9 @@ export default {
     <section>
         <span class="subtitulo-lg sua-lista-texto"> Sua lista:</span>
 
-        <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
-            <li v-for="ingrediente in ingredientes" :key="ingrediente">
-                <Tag :texto="ingrediente" ativa />
+        <ul v-if="ingredients.length" class="ingredientes-sua-lista">
+            <li v-for="ingredient in ingredients" :key="ingredient">
+                <Tag :text="ingredient" active />
             </li>
         </ul>
 

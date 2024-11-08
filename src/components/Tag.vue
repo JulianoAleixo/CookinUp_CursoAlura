@@ -1,15 +1,15 @@
 <script lang="ts">
 export default {
     props: {
-        texto: { type: String, required: true },
-        ativa: Boolean
+        text: { type: String, required: true },
+        active: Boolean
     },
 };
 </script>
 
 <template>
-    <span :class="['tag', { ativa }]">
-        {{ texto }}
+    <span :class="['tag', { active }]">
+        {{ text }}
     </span>
 </template>
 
@@ -26,7 +26,7 @@ export default {
     font-weight: 400;
 }
 
-.tag.ativa {
+.tag.active {
     color: var(--creme, #fffaf3);
     background: var(--coral, #f0633c);
     font-weight: 700;

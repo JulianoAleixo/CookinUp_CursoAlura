@@ -1,33 +1,33 @@
 <script lang="ts">
-import { obterReceitas } from "@/http";
-import type IRecipes from "@/interfaces/IRecipes";
-import { matchLists } from "@/operations/lists";
 import type { PropType } from "vue";
-import BotaoPrincipal from "./ButtonMain.vue";
-import CardReceita from "./CardRecipe.vue";
+import type IRecipe from "@/interfaces/IRecipe";
+import { getRecipes } from "@/http";
+import { matchLists } from "@/operations/lists";
+import CardRecipe from "./CardRecipe.vue";
+import ButtonMain from "./ButtonMain.vue";
 
 export default {
     props: {
-        ingredientes: { type: Array as PropType<string[]>, required: true },
+        ingredients: { type: Array as PropType<string[]>, required: true },
     },
     data() {
         return {
-            receitasEncontradas: [] as IRecipes[],
+            foundRecipes: [] as IRecipe[],
         };
     },
     async created() {
-        const receitas = await obterReceitas();
+        const recipes = await getRecipes();
 
-        this.receitasEncontradas = receitas.filter((receita) => {
-            const possoFazerReceita = matchLists(
-                receita.ingredientes,
-                this.ingredientes
+        this.foundRecipes = recipes.filter((recipe) => {
+            const canDoRecipe = matchLists(
+                recipe.ingredientes,
+                this.ingredients
             );
-            return possoFazerReceita;
+            return canDoRecipe;
         });
     },
-    components: { BotaoPrincipal, CardReceita },
-    emits: ["editarReceitas"],
+    components: { ButtonMain, CardRecipe },
+    emits: ["editRecipes"],
 };
 </script>
 
@@ -36,18 +36,18 @@ export default {
         <h1 class="titulo-receitas">Receitas</h1>
 
         <p class="paragrafo-lg resultados-encontrados">
-            Resultados encontrados:
+            Resultados encontrados: {{ foundRecipes.length }}
         </p>
 
-        <div v-if="receitasEncontradas.length" class="receitas-wrapper">
+        <div v-if="foundRecipes.length" class="receitas-wrapper">
             <p class="paragrafo-lg informacoes">
                 Veja as opções que encontramos com os ingredientes que você tem
                 por aí!
             </p>
 
             <ul class="receitas">
-                <li v-for="receita of receitasEncontradas" :key="receita.nome">
-                    <CardReceita :receita="receita" />
+                <li v-for="recipe of foundRecipes" :key="recipe.nome">
+                    <CardRecipe :recipe="recipe" />
                 </li>
             </ul>
         </div>
@@ -64,7 +64,7 @@ export default {
             />
         </div>
 
-        <BotaoPrincipal texto="Editar lista" @click="$emit('editarReceitas')" />
+        <ButtonMain text="Editar lista" @click="$emit('editRecipes')" />
     </section>
 </template>
 

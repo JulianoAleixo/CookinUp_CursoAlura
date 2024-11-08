@@ -1,14 +1,14 @@
 <script lang="ts">
 import type ICategory from "@/interfaces/ICategory";
 import type { PropType } from "vue";
-import IngredienteSelecionavel from "./IngredienteSelecionavel.vue";
+import SelectableIngredient from "./SelectableIngredient.vue";
 
 export default {
     props: {
-        categoria: { type: Object as PropType<ICategory>, required: true },
+        category: { type: Object as PropType<ICategory>, required: true },
     },
-    components: { IngredienteSelecionavel },
-    emits: ["adicionarIngrediente", "removerIngrediente"],
+    components: { SelectableIngredient },
+    emits: ["addIngredient", "removeIngredient"],
 };
 </script>
 
@@ -16,23 +16,23 @@ export default {
     <article class="categoria">
         <header class="categoria__cabecalho">
             <img
-                :src="`/images/icons/categories_ingredients/${categoria.rotulo}.png`"
+                :src="`/images/icons/categories_ingredients/${category.rotulo}.png`"
                 alt=""
                 class="categoria__imagem"
             />
 
-            <h2 class="paragrafo-lg categoria__nome">{{ categoria.nome }}</h2>
+            <h2 class="paragrafo-lg categoria__nome">{{ category.nome }}</h2>
         </header>
 
         <ul class="categoria__ingredientes">
             <li
-                v-for="ingrediente in categoria.ingredientes"
-                :key="ingrediente"
+                v-for="ingredient in category.ingredientes"
+                :key="ingredient"
             >
-                <IngredienteSelecionavel
-                    :ingrediente="ingrediente"
-                    @adicionar-ingrediente="$emit('adicionarIngrediente', $event)"
-                    @remover-ingrediente="$emit('removerIngrediente', $event)"
+                <SelectableIngredient
+                    :ingredient="ingredient"
+                    @add-ingredient="$emit('addIngredient', $event)"
+                    @remove-ingredient="$emit('removeIngredient', $event)"
                 />
             </li>
         </ul>

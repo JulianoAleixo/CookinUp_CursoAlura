@@ -1,4 +1,4 @@
-export default interface IRecipes {
+export default interface IRecipe {
     nome: string;
     ingredientes: string[];
     imagem: string;

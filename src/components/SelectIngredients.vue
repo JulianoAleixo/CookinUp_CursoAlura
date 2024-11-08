@@ -1,21 +1,21 @@
 <script lang="ts">
-import { obterCategorias } from "@/http/index";
+import { getCategories } from "@/http/index";
 import type ICategory from "@/interfaces/ICategory";
-import CardCategoria from "./CardCategory.vue";
-import BotaoPrincipal from "./ButtonMain.vue";
+import CardCategory from "./CardCategory.vue";
+import ButtonMain from "./ButtonMain.vue";
 
 export default {
-    name: "SelecionarIngredientes",
+    name: "SelectIngredients",
     data() {
         return {
             categorias: [] as ICategory[],
         };
     },
     async created() {
-        this.categorias = await obterCategorias();
+        this.categorias = await getCategories();
     },
-    components: { CardCategoria, BotaoPrincipal },
-    emits: ["adicionarIngrediente", "removerIngrediente", "buscarReceitas"],
+    components: { CardCategory, ButtonMain },
+    emits: ["addIngredient", "removeIngredient", "searchRecipes"],
 };
 </script>
 
@@ -28,13 +28,13 @@ export default {
         </p>
 
         <ul class="categorias">
-            <li v-for="categoria in categorias" :key="categoria.nome">
-                <CardCategoria
-                    :categoria="categoria"
-                    @adicionar-ingrediente="
-                        $emit('adicionarIngrediente', $event)
+            <li v-for="category in categorias" :key="category.nome">
+                <CardCategory
+                    :category="category"
+                    @add-ingredient="
+                        $emit('addIngredient', $event)
                     "
-                    @remover-ingrediente="$emit('removerIngrediente', $event)"
+                    @remove-ingredient="$emit('removeIngredient', $event)"
                 />
             </li>
         </ul>
@@ -43,7 +43,7 @@ export default {
             *Atenção: Consideramos que você tem em casa sal, pimenta e água.
         </p>
 
-        <BotaoPrincipal texto="Buscar Receitas" @click="$emit('buscarReceitas')" />
+        <ButtonMain text="Buscar Receitas" @click="$emit('searchRecipes')" />
     </section>
 </template>
 

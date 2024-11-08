@@ -1,29 +1,29 @@
 <script lang="ts">
-import SuaLista from "./YourList.vue";
-import SelecionarIngredientes from "./SelecionarIngredientes.vue";
-import MostrarReceitas from "./ShowRecipes.vue";
+import SelectIngredients from "./SelectIngredients.vue";
+import ShowRecipes from "./ShowRecipes.vue";
+import YourList from "./YourList.vue";
 
-type Pagina = "SelecionarIngredientes" | "MostrarReceitas";
+type Page = "SelectIngredients" | "ShowRecipes";
 
 export default {
     data() {
         return {
-            ingredientes: [] as string[],
-            conteudo: "SelecionarIngredientes" as Pagina,
+            ingredients: [] as string[],
+            content: "SelectIngredients" as Page,
         };
     },
-    components: { SuaLista, SelecionarIngredientes, MostrarReceitas },
+    components: { YourList, SelectIngredients, ShowRecipes },
     methods: {
-        adicionarIngrediente(ingrediente: string) {
-            this.ingredientes.push(ingrediente);
+        addIngredient(ingredient: string) {
+            this.ingredients.push(ingredient);
         },
-        removerIngrediente(ingrediente: string) {
-            this.ingredientes = this.ingredientes.filter(
-                (item) => ingrediente !== item
+        removeIngredient(ingredient: string) {
+            this.ingredients = this.ingredients.filter(
+                (item) => ingredient !== item
             );
         },
-        navegar(pagina: Pagina) {
-            this.conteudo = pagina;
+        navigate(page: Page) {
+            this.content = page;
         },
     },
 };
@@ -31,20 +31,20 @@ export default {
 
 <template>
     <main class="conteudo-principal">
-        <SuaLista :ingredientes="ingredientes" />
+        <YourList :ingredients="ingredients" />
 
-        <KeepAlive include="SelecionarIngredientes">
-            <SelecionarIngredientes
-                v-if="conteudo === 'SelecionarIngredientes'"
-                @adicionar-ingrediente="adicionarIngrediente($event)"
-                @remover-ingrediente="removerIngrediente($event)"
-                @buscar-receitas="navegar('MostrarReceitas')"
+        <KeepAlive include="SelectIngredients">
+            <SelectIngredients
+                v-if="content === 'SelectIngredients'"
+                @add-ingredient="addIngredient($event)"
+                @remove-ingredient="removeIngredient($event)"
+                @search-recipes="navigate('ShowRecipes')"
             />
 
-            <MostrarReceitas
-                v-else-if="conteudo === 'MostrarReceitas'"
-                :ingredientes="ingredientes"
-                @editar-receitas="navegar('SelecionarIngredientes')"
+            <ShowRecipes
+                v-else-if="content === 'ShowRecipes'"
+                :ingredients="ingredients"
+                @edit-recipes="navigate('SelectIngredients')"
             />
         </KeepAlive>
     </main>

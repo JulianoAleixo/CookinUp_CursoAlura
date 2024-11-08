@@ -1,14 +1,14 @@
 <script lang="ts">
 export default {
     props: {
-        texto: { type: String, required: true },
+        text: { type: String, required: true },
     },
 };
 </script>
 
 <template>
     <button class="paragrafo-lg botao-principal">
-        {{ texto }}
+        {{ text }}
     </button>
 </template>
 
